@@ -67,7 +67,7 @@ app.post('/login',async (req, res) => {
   try{
     const check = await collection.findOne({name: req.body.username});
     if(!check){
-        res.send('Username no encontrado');
+        res.send('Usuario no encontrado');
 
     }
 
