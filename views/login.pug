@@ -3,15 +3,24 @@ extends layout
 block content
   h2 Iniciar Sesión
 
+      p(class="text-yellow-50 text-center") Inicia sesión para mandar tu primer o último mensaje
+      div(class="pb-4")
+
+
   // Aquí puedes agregar mensajes de error si es necesario
   //- if (error)
   //-   p.error-message= error
 
-  form(action="/login", method="POST")
-    label(for="username") Nombre de Usuario:
-    input(type="text", id="username", name="username", required)
+  form(action="/login", method="POST" class="bg-white  px-8 pt-6 pb-8 mb-4 lg:w-96 rounded-3xl sm:w-96 md:w-full mx-auto my-auto")
+    div(class="pb-4")
+        input(class="shadow appearance-none rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center" id="username" name="username" type="text" placeholder="Ingresa tu username" required="required")
+    div(class="pb-4")
+        input(class="shadow appearance-none rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center" id="password" name="password" type="password" placeholder="********" required="required")
+    button(type="submit"  class="bg-black hover:bg-pink-950 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline flex  mx-auto cursor-pointer" value="INICIAR") Iniciar Sesión
+  p(class="text-yellow-100 text-center") 
+    | Si no tienes cuenta, 
+    a(href="/signup" class="text-yellow-200") create una.
 
-    label(for="password") Contraseña:
-    input(type="password", id="password", name="password", required)
+  div(class="pb-5")  
+  img(src="/images/login-img.webp", alt="Imagen de Fondo", class="lg:block hidden absolute bottom-0 right-0 mb-4 mr-4")
 
-    button(type="submit") Iniciar Sesión
