@@ -1,8 +1,15 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const collection = require('./config');
+//importando socket.io
+const http = require('http');
+const socketIo = require('socket.io');
+
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
 const port = 3000;
 
 //Convertir data a formato de JSON
@@ -81,6 +88,23 @@ app.post('/login',async (req, res) => {
   }catch{
     res.send('Campos incorrectos');
   }
+});
+
+
+//Manejar los mensajes del chat
+io.on('connection', (socket) => {
+  console.log('User connected');
+
+  //Manejar los mensajes del chat
+  socket.on('chat message', (msg) =>{
+    io.emit('chat message', msg); //enviar mensake a todos los clientes
+  });
+
+
+  //desconexion del usuario
+  socket.on('disconnect', () =>{
+    console.log('User disconnected');
+  });
 });
 
 app.listen(port, () => {

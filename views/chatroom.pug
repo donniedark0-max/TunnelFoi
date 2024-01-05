@@ -6,3 +6,32 @@ block content
 
 
     img(src="/images/chatroom-img.webp", alt="Imagen de Fondo", class="lg:block hidden absolute bottom-0 right-0 mb-4 mr-4")
+
+    //Contenedor del chat
+    div(id="chat-container")
+
+    //Formulario para enviar mensajes
+    form(id="chat-form" class="text-center")
+        input(type="text" id="message-input" placeholder="Escribe tu mensaje...")
+        button(type="submit") Enviar 
+
+    //Cliente del Socket.IO
+    scrip(src="https://cdn.socket.io/4.1.2/socket.io.min.js")
+    script. 
+        const socket = io();
+
+        //Manejar el envio de mensajes
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = document.getElementById('message-input').value;
+            socket.emit('chat message', message);
+            document.getElementById('message-input').value ='';
+        });
+
+        //Manjear la recepcion de mensajes
+        socket.on('chat message', function(msg) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageItem = document.createElement('p');
+            messageItem.textContent = msg;
+            chatContainer.appendChild(messageItem);
+        });
